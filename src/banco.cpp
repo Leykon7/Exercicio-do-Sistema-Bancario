@@ -6,10 +6,11 @@ using namespace std;
 
 Banco::Banco() //O construtor criara 4 contas
 {
-    this->contas[0] = Conta(1234, 1, "Joao", "Corrente", 300);
-    this->contas[1] = {4567, 2, "Jose", "Poupanca", 800};
-    this->contas[2] = {7890, 3, "Maria", "Corrente", 1000};
-    this->contas[3] = {8956, 4, "Madalena", "Poupanca", 2000};
+    this->contas[0] = Conta(5555, 0, "Funcionario", "Adm", 0);
+    this->contas[1] = {1234, 1, "Joao", "Corrente", 300};
+    this->contas[2] = {4567, 2, "Jose", "Poupanca", 800};
+    this->contas[3] = {7890, 3, "Maria", "Corrente", 1000};
+    this->contas[4] = {8956, 4, "Madalena", "Poupanca", 2000};
 }
 
 Banco::~Banco()
@@ -20,10 +21,13 @@ Banco::~Banco()
 void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na main)
 {   
     Conta *contaCliente; //ponteiro do tipo conta
+    Conta *contaCliente2;
     int numC = 0;
-    int senhain;
+    int senhain, i=5;
+    double saldo;
     bool atendimento1 = true;
     bool atendimento2 = true;
+    string nome, tipo;
 
     while(atendimento1)
     {
@@ -43,67 +47,103 @@ void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na
             cout << "\nDigite a sua senha: ";
             cin >> senhain;
 
-            if (contaCliente->validaSenha(senhain))
+            if(contaCliente ->numero == 0) // CONTA 0 (CONTA DO FUNCIONARIO)
             {
-                cout << "\n\n\t\t\t\t\t\tOla " << contaCliente->titular << "!" <<endl;
-                while (atendimento2) //Realiza o atendimento
-                {
-                    int op;
-                    double valor;
-                    cout << "\n\nQual operacao deseja fazer? (1 - Saque, 2 - Deposito, 3 - Ver Saldo, 4 - Transferencia, 5 - Sair): ";
-                    cin >> op;
-                    cout << endl;
-                    switch (op)
+                cout << "\n\n\t\t\t\t\t\tOla " << contaCliente->titular << "!" <<endl<<endl;
+                while (atendimento2)
+                {   
+                    int op2;
+                    cout << "O que deseja fazer? (1 - Criar nova conta, 0 - Sair): ";
+                    cin >> op2;
+                    switch (op2)
                     {
                     case 1:
-                        cout << "Digite o valor: ";
-                        cin>>valor;
-                        contaCliente->saque(senhain,valor);
-                        break;
-
-                    case 2:
-                        cout << "Digite o valor: ";
-                        cin>>valor;
-                        contaCliente->deposito(valor);
-                        cout << "\n\n\t\t\tDeposito realizado com sucesso!\n";
-                        break;
-
-                    case 3:
-                        cout << "Saldo: R$ "<<contaCliente->getSaldo(senhain)<<endl;
-                        break;
-
-                    case 4:
-                        cout << "Valor a ser transferido: ";
-                        cin >> valor;
-                        contaCliente->transferenciaPasso1(valor);
-
-                        cout << "\nConta para qual tranferir: ";
-                        cin >> numC; 
-                        Conta *contaCliente2;
-                        contaCliente2 = this->buscaConta(numC);
-                        if (contaCliente2 == nullptr)
-                        {
-                            cout << "\n\t\t\tConta invalida!" << endl;
-                            break;
-                        }
-                        else
-                        {
-                            contaCliente2->transferenciaPasso2(valor);
-                        }
-                        break;
+                        /* FUNÇÃO DE CRIAR NOVAS CONTAS */
                         
-                    case 5:
+                        cout << "\n\nInsira o nome do titular: ";
+                        cin >> nome;
+                        cout << "Insira a senha: ";
+                        cin >> senhain;
+                        cout << "Insira o tipo da conta: ";
+                        cin >> tipo;
+                        cout << "Insira o saldo inicial: ";
+                        cin >> saldo;
+                        this->contas[i] = {senhain, i, nome, tipo, saldo};
+                        cout << "\n\t\t\tConta numero "<< i << " cadastrada com sucesso!" <<endl<<endl;
+                        i++;
+                        system("pause");
+                        cout <<endl;
+                        break;
+                    
+                    case 0:
                         atendimento2 = false;
-                        break; 
+                        break;
                     }
-                    cout << endl;
-                    system("pause");
                 }
             }
             else
             {
-                cout << "\nSenha invalida" << endl;
-            }
+                if (contaCliente->validaSenha(senhain))
+                {
+                    cout << "\n\n\t\t\t\t\t\tOla " << contaCliente->titular << "!" <<endl;
+                    while (atendimento2) //Realiza o atendimento
+                    {
+                        int op;
+                        double valor;
+                        cout << "\n\nQual operacao deseja fazer? (1 - Saque, 2 - Deposito, 3 - Ver Saldo, 4 - Transferencia, 5 - Sair): ";
+                        cin >> op;
+                        cout << endl;
+                        switch (op)
+                        {
+                        case 1:
+                            cout << "Digite o valor: ";
+                            cin>>valor;
+                            contaCliente->saque(senhain,valor);
+                            break;
+
+                        case 2:
+                            cout << "Digite o valor: ";
+                            cin>>valor;
+                            contaCliente->deposito(valor);
+                            cout << "\n\n\t\t\tDeposito realizado com sucesso!\n";
+                            break;
+
+                        case 3:
+                            cout << "Saldo: R$ "<<contaCliente->getSaldo(senhain)<<endl;
+                            break;
+
+                        case 4:
+                            cout << "Valor a ser transferido: ";
+                            cin >> valor;
+                            contaCliente->transferenciaPasso1(valor);
+
+                            cout << "\nConta para qual tranferir: ";
+                            cin >> numC; 
+                            contaCliente2 = this->buscaConta(numC);
+                            if (contaCliente2 == nullptr)
+                            {
+                                cout << "\n\t\t\tConta invalida!" << endl;
+                                break;
+                            }
+                            else
+                            {
+                                contaCliente2->transferenciaPasso2(valor);
+                            }
+                            break;
+                            
+                        case 5:
+                            atendimento2 = false;
+                            break; 
+                        }
+                        cout << endl;
+                        system("pause");
+                    }
+                }
+                else
+                {
+                    cout << "\nSenha invalida" << endl;
+                }
+            }           
         }
         
         cout << "\nDeseja entrar em outra conta? (1 - Sim, 0 - Nao): ";
