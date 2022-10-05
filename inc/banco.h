@@ -14,7 +14,9 @@ public:
     ~Banco();
     Conta* buscaConta(int numero); //Metodo que retorna o endereço do objeto conta que possui o mesmo numero informado
     void atendimento();
-    void criadorConta(int senhain, int i, std::string nome, std::string tipo, double saldo);
+    void criadorConta(int senhain, int i);
+    void atendCliente(Conta*);
+    void atendGerente(int i);
 };
 
 
