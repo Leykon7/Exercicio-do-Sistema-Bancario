@@ -21,7 +21,7 @@ Banco::~Banco()
 void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na main)
 {   
     Conta *contaCliente; //ponteiro do tipo conta
-    Conta *contaCliente2;
+    Conta *cDest;
     int numC = 0;
     int senhain, i=5;
     double saldo;
@@ -59,17 +59,7 @@ void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na
                     {
                     case 1:
                         /* FUNÇÃO DE CRIAR NOVAS CONTAS */
-                        
-                        cout << "\n\nInsira o nome do titular: ";
-                        cin >> nome;
-                        cout << "Insira a senha: ";
-                        cin >> senhain;
-                        cout << "Insira o tipo da conta: ";
-                        cin >> tipo;
-                        cout << "Insira o saldo inicial: ";
-                        cin >> saldo;
-                        this->contas[i] = {senhain, i, nome, tipo, saldo};
-                        cout << "\n\t\t\tConta numero "<< i << " cadastrada com sucesso!" <<endl<<endl;
+                        criadorConta(senhain, i, nome, tipo, saldo);
                         i++;
                         system("pause");
                         cout <<endl;
@@ -115,19 +105,18 @@ void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na
                         case 4:
                             cout << "Valor a ser transferido: ";
                             cin >> valor;
-                            contaCliente->transferenciaPasso1(valor);
 
                             cout << "\nConta para qual tranferir: ";
                             cin >> numC; 
-                            contaCliente2 = this->buscaConta(numC);
-                            if (contaCliente2 == nullptr)
+                            cDest = this->buscaConta(numC);
+                            if (cDest == nullptr)
                             {
                                 cout << "\n\t\t\tConta invalida!" << endl;
                                 break;
                             }
                             else
                             {
-                                contaCliente2->transferenciaPasso2(valor);
+                                contaCliente->transferencia(senhain, valor, cDest);
                             }
                             break;
                             
@@ -146,7 +135,7 @@ void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na
             }           
         }
         
-        cout << "\nDeseja entrar em outra conta? (1 - Sim, 0 - Nao): ";
+        cout << "\n\nDeseja entrar em outra conta? (1 - Sim, 0 - Nao): ";
         cin >> atendimento1;
         cout <<endl<<endl; 
     }
@@ -163,4 +152,19 @@ Conta *Banco::buscaConta(int numero)//Retorna o endereço da conta que possuir o
     }
 
     return nullptr;
+}
+
+
+void Banco::criadorConta(int senhain, int i, string nome, string tipo, double saldo)
+{
+    cout << "\n\nInsira o nome do titular: ";
+    cin >> nome;
+    cout << "Insira a senha: ";
+    cin >> senhain;
+    cout << "Insira o tipo da conta: ";
+    cin >> tipo;
+    cout << "Insira o saldo inicial: ";
+    cin >> saldo;
+    this->contas[i] = {senhain, i, nome, tipo, saldo};
+    cout << "\n\t\t\tConta numero "<< i << " cadastrada com sucesso!" <<endl<<endl;
 }

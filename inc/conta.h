@@ -20,10 +20,9 @@ public:
     void setSaldo(double valor);
     void setSenha(int novaSenha);
     void deposito(double valor);
-    void saque(int senha, double valor);
+    bool saque(int senha, double valor);
     bool validaSenha(int senha);
-    void transferenciaPasso1(double valor);
-    void transferenciaPasso2(double valor);
+    void transferencia(int senha, double valor, Conta* cdest);
 };
 
 
