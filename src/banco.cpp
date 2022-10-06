@@ -89,7 +89,7 @@ void Banco::atendCliente(Conta* cDest)
 
     if (contaCliente == nullptr)           //Se não achar nenhuma conta que corresponda entra nesse if
     {
-        cout << "\n\n\t\t\tConta invalida!" << endl <<endl;
+        cout << "\n\n\t\t\t\tConta invalida!" << endl <<endl;
     }
     else
     {
@@ -101,9 +101,9 @@ void Banco::atendCliente(Conta* cDest)
             double valor;
             bool atendimento;
             cout << "\n\n\t\t\t\t\t\tOla "<< contaCliente->titular<< "!" <<endl;
+            cout << "\n\nConta " << contaCliente->tipo;
             while (atendimento) //Realiza o atendimento
             {   
-                cout << "\n\nConta " << contaCliente->tipo;
                 cout << "\n\nQual operacao deseja fazer? (1 - Saque, 2 - Deposito, 3 - Ver Saldo, 4 - Transferencia, 5 - Sair): ";
                 cin >> op;
                 cout << endl;
@@ -119,7 +119,7 @@ void Banco::atendCliente(Conta* cDest)
                     cout << "Digite o valor: ";
                     cin>>valor;
                     contaCliente->deposito(valor);
-                    cout << "\n\n\t\t\tDeposito realizado com sucesso!\n";
+                    cout << "\n\n\t\t\t\tDeposito realizado com sucesso!\n";
                     break;
 
                 case 3:
@@ -135,7 +135,7 @@ void Banco::atendCliente(Conta* cDest)
                     cDest = this->buscaConta(numC);
                     if (cDest == nullptr)
                     {
-                        cout << "\n\t\t\tConta invalida!" << endl;
+                        cout << "\n\n\t\t\t\tConta invalida!" << endl;
                         break;
                     }
                     else
@@ -181,6 +181,7 @@ void Banco::atendGerente(int i)
             case true:
                 criadorConta(senhain, i);
                 i++;
+                cout <<endl;
                 system("pause");
                 cout <<endl;
                 break;
@@ -192,6 +193,6 @@ void Banco::atendGerente(int i)
     }
     else
     {
-        cout << "\nSenha invalida!" << endl;
+        cout << "\n\n\t\t\t\tSenha invalida!" << endl;
     }    
 }
