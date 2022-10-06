@@ -102,7 +102,8 @@ void Banco::atendCliente(Conta* cDest)
             bool atendimento;
             cout << "\n\n\t\t\t\t\t\tOla "<< contaCliente->titular<< "!" <<endl;
             while (atendimento) //Realiza o atendimento
-            {
+            {   
+                cout << "\n\nConta " << contaCliente->tipo;
                 cout << "\n\nQual operacao deseja fazer? (1 - Saque, 2 - Deposito, 3 - Ver Saldo, 4 - Transferencia, 5 - Sair): ";
                 cin >> op;
                 cout << endl;
@@ -160,7 +161,7 @@ void Banco::atendCliente(Conta* cDest)
 
 void Banco::atendGerente(int i)
 {   
-    int op;
+    bool op;
     bool atendimento;
     int senhain;
     Conta* gerente = &contas[0];
@@ -177,13 +178,13 @@ void Banco::atendGerente(int i)
             cin >> op;
             switch (op)
             {
-            case 1:
+            case true:
                 criadorConta(senhain, i);
                 i++;
                 system("pause");
                 cout <<endl;
                 break;
-            case 0:
+            case false:
                 atendimento = false;
                 break;
             }
