@@ -13,9 +13,10 @@
         },
         {
             "label": "run",
-            "type":"shell",
+            "type": "shell",
             "command": ".\\bin\\SistemaBancario.exe",
-            "dependsOn": "build"
+            "dependsOn": "build",
+            "problemMatcher": []
         }
     ]
 }

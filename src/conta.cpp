@@ -15,13 +15,13 @@ Conta::Conta(int senha, int numero, std::string titular, std::string tipo, doubl
     this->numero = numero;
     this->titular = titular;
     this->tipo = tipo;
-    if(saldo>0)
+    if(saldo>=0)
     {
         this->saldo = saldo;
     }
     else
     {
-        std::cout<<"Saldo inicial invalido"<<std::endl;
+        std::cout<<"\n\n\t\t\t\tSaldo inicial invalido!"<<std::endl;
     }    
 }
 
@@ -38,15 +38,15 @@ void Conta::exibeDados()
 
 double Conta::getSaldo(int senha)
 {
-   /* if(senha==this->senha)
-    {   */
+    if(senha==this->senha)
+    {   
         return this->saldo;
-    //}
-    /*else
+    }
+    else
     {
-        std::cout<<"Senha inválida"<<std::endl;
+        std::cout<<"\n\n\t\t\t\tSenha inválida"<<std::endl;
         return -10000000;
-    }    */
+    }    
 
 }
 
@@ -68,7 +68,7 @@ void Conta::deposito(double valor)
     }
     else
     {
-        std::cout<<"\n\t\t\tValor invalido"<<std::endl;
+        std::cout<<"\n\n\t\t\t\tValor invalido!"<<std::endl;
     }
     
 }
@@ -80,18 +80,18 @@ bool Conta::saque(int senha, double valor)
         if(this->saldo>valor)
         {
             this->saldo-=valor;
-            std::cout<<"\n\n\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<std::endl;
+            std::cout<<"\n\n\t\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<std::endl;
             return true;
         }
         else
         {
-            std::cout<<"\n\t\t\tSaldo insuficiente"<<std::endl;
+            std::cout<<"\n\n\t\t\t\tSaldo insuficiente!"<<std::endl;
             return false;
         }    
     }
     else
     {
-        std::cout<<"\n\t\t\tSenha invalida!"<<std::endl;
+        std::cout<<"\n\n\t\t\t\tSenha invalida!"<<std::endl;
         return false;
     }
     
@@ -120,6 +120,6 @@ void Conta::transferencia(int senha, double valor, Conta* cdest)
     }
     else
     {
-        std::cout << "\n\t\t\tA tranferência não foi concluída!";
+        std::cout << "\n\n\t\t\t\tA tranferência não foi concluída!";
     }
 }
