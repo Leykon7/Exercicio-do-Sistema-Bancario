@@ -80,7 +80,6 @@ bool Conta::saque(int senha, double valor)
         if(this->saldo>valor)
         {
             this->saldo-=valor;
-            //std::cout<<"\n\n\t\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<std::endl;
             return true;
         }
         else

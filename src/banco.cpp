@@ -21,27 +21,46 @@ Banco::~Banco()
 void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na main)
 {   
     int i=5;
-    bool atendimento = true;
+    int atendimento=1;
     
-    while(atendimento)
+    while(atendimento==1)
     {
         cout << "\n\t\t\tBem vindo ao sistema de atendimento do banco!\n\n" << endl;
         cout << "Voce e cliente ou gerente? (0 - Gerente | 1 - Cliente): ";
         cin >> atendimento;
 
-        if(atendimento)
+        switch (atendimento)
         {
-            atendCliente();
-        }
-        else
-        {
+        case 0:
             atendGerente(i);
+            break;
+        case 1:
+            atendCliente();
+            break;
+        default:
+            cout << "\n\n\t\t\t\tEntrada invalida!"<<endl<<endl;
+            system("pause");
+            system("cls");
+            break;
         }
-        
-        cout << "\n\nDeseja entrar em outra conta? (0 - Nao | 1 - Sim): ";
+        cout << "\n\nDeseja entrar em alguma conta? (0 - Nao | 1 - Sim): ";
         cin >> atendimento;
-        cout <<endl<<endl; 
-        system("cls"); 
+        system("cls");
+        switch (atendimento)
+        {
+        case 0:
+            break;
+        case 1:
+            break;
+        default:
+            cout << "\n\n\t\t\t\tEntrada invalida!"<<endl<<endl;
+            cout << "\n\t\t\tO programa sera encerrado!"<<endl<<endl;
+            system("pause");
+            system("cls");
+            atendimento = 0;
+            break;
+        cout <<endl<<endl;
+        }
     }
 }
 
@@ -95,7 +114,6 @@ void Banco::atendCliente()
                 case 1:
                     cout << "Digite o valor: ";
                     cin>>valor;
-                    //contaCliente->saque(senhain,valor);
                     if(contaCliente->saque(senhain,valor))
                     {
                         cout<<"\n\n\t\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<endl;
@@ -120,9 +138,10 @@ void Banco::atendCliente()
                     cout << "\nConta para qual tranferir: ";
                     cin >> numC; 
                     cDest = this->buscaConta(numC);
-                    if (cDest == nullptr)
+                    if (cDest == nullptr || cDest == contaCliente)
                     {
                         cout << "\n\n\t\t\t\tConta invalida!" << endl;
+                        cout << "\n\n\t\t\t\tA tranferencia nao foi concluida!";
                         break;
                     }
                     else
@@ -136,7 +155,8 @@ void Banco::atendCliente()
                     break; 
                 }
                 cout << endl;
-                //system("pause");
+                system("pause");
+                system("cls");
             }
         }
         else
