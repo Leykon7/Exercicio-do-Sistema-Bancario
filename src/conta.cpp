@@ -113,13 +113,13 @@ bool Conta::validaSenha(int senha)
 void Conta::transferencia(int senha, double valor, Conta* cdest)
 {
     bool res;
-    this->saque(senha, valor);
+    res = this->saque(senha, valor);
     if(res)
     {
         cdest->deposito(valor);
     }
     else
     {
-        std::cout << "\n\n\t\t\t\tA tranferência não foi concluída!";
+        std::cout << "\n\n\t\t\t\tA tranferencia nao foi concluida!";
     }
 }
