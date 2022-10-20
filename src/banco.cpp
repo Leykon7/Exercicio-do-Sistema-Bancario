@@ -20,28 +20,28 @@ Banco::~Banco()
 
 void Banco::atendimento() //Realiza o atendimento ao cliente(Função chamada na main)
 {   
-    Conta *cDest;
     int i=5;
     bool atendimento = true;
     
     while(atendimento)
     {
         cout << "\n\t\t\tBem vindo ao sistema de atendimento do banco!\n\n" << endl;
-        cout << "Voce e cliente ou gerente? (1 - Cliente, 0 - Gerente): ";
+        cout << "Voce e cliente ou gerente? (0 - Gerente | 1 - Cliente): ";
         cin >> atendimento;
 
         if(atendimento)
         {
-            atendCliente(cDest);
+            atendCliente();
         }
         else
         {
             atendGerente(i);
         }
         
-        cout << "\n\nDeseja entrar em outra conta? (1 - Sim, 0 - Nao): ";
+        cout << "\n\nDeseja entrar em outra conta? (0 - Nao | 1 - Sim): ";
         cin >> atendimento;
         cout <<endl<<endl; 
+        system("cls"); 
     }
 }
 
@@ -58,30 +58,12 @@ Conta *Banco::buscaConta(int numero)//Retorna o endereço da conta que possuir o
     return nullptr;
 }
 
-
-void Banco::criadorConta(int senhain, int i)
-{
-    string nome, tipo;
-    double saldo;
-
-    cout << "\n\nInsira o nome do titular: ";
-    cin >> nome;
-    cout << "Insira a senha: ";
-    cin >> senhain;
-    cout << "Insira o tipo da conta: ";
-    cin >> tipo;
-    cout << "Insira o saldo inicial: ";
-    cin >> saldo;
-    this->contas[i] = {senhain, i, nome, tipo, saldo};
-    cout << "\n\t\t\tConta numero "<< i << " cadastrada com sucesso!" <<endl<<endl;
-}
-
-
-void Banco::atendCliente(Conta* cDest)
+void Banco::atendCliente()
 {
     int senhain; 
     int numC; 
     Conta* contaCliente; // ponteiro do tipo Conta
+    Conta* cDest;
 
     cout << "\n\nDigite o numero da sua conta: ";
     cin >> numC;
@@ -104,7 +86,7 @@ void Banco::atendCliente(Conta* cDest)
             cout << "\n\nConta " << contaCliente->tipo;
             while (atendimento) //Realiza o atendimento
             {   
-                cout << "\n\nQual operacao deseja fazer? (1 - Saque, 2 - Deposito, 3 - Ver Saldo, 4 - Transferencia, 5 - Sair): ";
+                cout << "\n\nQual operacao deseja fazer? (1 - Saque | 2 - Deposito | 3 - Ver Saldo | 4 - Transferencia | 5 - Sair): ";
                 cin >> op;
                 cout << endl;
                 switch (op)
@@ -159,7 +141,7 @@ void Banco::atendCliente(Conta* cDest)
     }
 }
 
-void Banco::atendGerente(int i)
+void Banco::atendGerente(int& i)
 {   
     bool op;
     bool atendimento;
@@ -174,15 +156,15 @@ void Banco::atendGerente(int i)
         while (atendimento)
         {   
             cout << "\n\n\t\t\t\t\t\tOla gerente!" <<endl<<endl;
-            cout << "\nO que deseja fazer? (1 - Criar nova conta, 0 - Sair): ";
+            cout << "\nO que deseja fazer? (0 - Sair | 1 - Criar nova conta): ";
             cin >> op;
             switch (op)
             {
             case true:
                 criadorConta(senhain, i);
-                i++;
                 cout <<endl;
                 system("pause");
+                system("cls"); 
                 cout <<endl;
                 break;
             case false:
@@ -195,4 +177,31 @@ void Banco::atendGerente(int i)
     {
         cout << "\n\n\t\t\t\tSenha invalida!" << endl;
     }    
+}
+
+void Banco::criadorConta(int& senhain, int& i)
+{
+    double saldo;
+    bool tipo;
+    cout << "\n\nInsira o nome do titular: ";
+    cin >> this->contas[i].titular;
+    cout << "Insira a senha: ";
+    cin >> senhain;
+    this->contas[i].setSenha(senhain);
+    cout << "Insira o tipo da conta (0 - Corrente | 1 - Poupanca): ";
+    cin >> tipo;
+    if(tipo)
+    {
+        this->contas[i].tipo = "Poupaca";
+    }
+    else
+    {
+        this->contas[i].tipo = "Corrente";
+    }
+    cout << "Insira o saldo inicial: ";
+    cin >> saldo;
+    this->contas[i].setSaldo(saldo);
+    this->contas[i].numero = i;
+    cout << "\n\t\t\tConta numero "<< i << " cadastrada com sucesso!" <<endl<<endl;
+    i++;
 }
