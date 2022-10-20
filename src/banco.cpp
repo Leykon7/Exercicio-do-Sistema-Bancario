@@ -77,6 +77,7 @@ void Banco::atendCliente()
     {
         cout << "\nDigite a sua senha: ";
         cin >> senhain;
+        system("cls");
         if (contaCliente->validaSenha(senhain))
         {
             int op;
@@ -94,7 +95,11 @@ void Banco::atendCliente()
                 case 1:
                     cout << "Digite o valor: ";
                     cin>>valor;
-                    contaCliente->saque(senhain,valor);
+                    //contaCliente->saque(senhain,valor);
+                    if(contaCliente->saque(senhain,valor))
+                    {
+                        cout<<"\n\n\t\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<endl;
+                    }
                     break;
 
                 case 2:
@@ -150,7 +155,7 @@ void Banco::atendGerente(int& i)
 
     cout << "\nDigite a sua senha: ";
     cin >> senhain;
-
+    system("cls");
     if (gerente->validaSenha(senhain))
     {
         while (atendimento)

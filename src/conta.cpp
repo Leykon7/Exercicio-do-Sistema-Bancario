@@ -80,7 +80,7 @@ bool Conta::saque(int senha, double valor)
         if(this->saldo>valor)
         {
             this->saldo-=valor;
-            std::cout<<"\n\n\t\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<std::endl;
+            //std::cout<<"\n\n\t\t\t\tSaque de R$"<<valor<<" realizado com sucesso."<<std::endl;
             return true;
         }
         else
@@ -112,11 +112,10 @@ bool Conta::validaSenha(int senha)
 
 void Conta::transferencia(int senha, double valor, Conta* cdest)
 {
-    bool res;
-    res = this->saque(senha, valor);
-    if(res)
+    if(this->saque(senha, valor))
     {
         cdest->deposito(valor);
+        std::cout<<"\n\n\t\t\t\tTransferencia de R$"<<valor<<" realizada com sucesso."<<std::endl;
     }
     else
     {
