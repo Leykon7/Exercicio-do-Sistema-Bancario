@@ -156,7 +156,7 @@ void Banco::atendGerente(int& i)
         while (atendimento)
         {   
             cout << "\n\n\t\t\t\t\t\tOla gerente!" <<endl<<endl;
-            cout << "\nO que deseja fazer? (0 - Sair | 1 - Criar nova conta): ";
+            cout << "\nO que deseja fazer? (0 - Sair/Entrar em outra conta | 1 - Criar nova conta): ";
             cin >> op;
             switch (op)
             {
